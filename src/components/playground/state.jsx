@@ -1,18 +1,34 @@
 import { useState } from "react";
 
 const StatePlayground = () => {
-    let [count,setCount] = useState(0); //when using use state it will ask for a variable and then a function with the function being set+the variable name
-                                        //so the format should be "[*VARIABLENAME*, set*VARIABLENAME*] but the set should be in camelcase"
-                                        //useState(0) sets the variable count's initail state to 0
-    //console.log(count);
+    let initalCount = 0; //this can allow us to have reference to the counts original value and allows us to create the reset button
+    let [count,setCount] = useState(initalCount); 
+    console.log(count);
 
-    // const addOne = () => {
-    //     setCount(++count);
-    // }
+
+    const addOne = () => {
+        //setCount(++count) This mutates the closure variable and is not the React-recommended approach.
+        //setCount(count + 1) Adds 1 to count and passes the result, without mutation. This is slightly better, but still problematic.
+        setCount((prevCount) => prevCount+1)
+    }
+
+    const subOne = () => {
+    //setCount(--count); This mutates the closure variable and is not the React-recommended approach.
+    
+    setCount((prevCount) => prevCount-1) //Uses the functional form of setCount, 
+                                        // which receives the current state value and returns the new value. 
+                                        // This is the correct way to update state based on the previous state.
+    }
+
+    const resetCount = () => {
+        setCount(initalCount)
+    }
     return(
         <>
             <h3>Count: {count}</h3>
-            <button onClick={/*addOne*//*if you want a external func that adds 1 or*/() => setCount(++count)/*for a in line function that does the same*/}> Add one</button>
+            <button onClick={addOne}> Add one</button>
+            <button onClick={subOne}> Subtract one</button>
+            <button onClick={resetCount}> Reset</button>
         </>
     )
 }
