@@ -4,27 +4,19 @@ const getTheYear = () => {
     return newDate.getFullYear();
 }
 
-/*
-makes classes for the styles that we add inline 
-as this is javascript we dont get auto-fill
-let styles = {
-    header:{
-        background: '#03a9f4'
-    },
-    logo:{
-        color: '#ffffff',
-        fontFamily: 'Anton',
-        textAlign: 'center'
-    }
+const handleChange = (event) => {
+    console.log(event.target.value)
 }
-*/
 const Header = () => {
     return(
     <header>
         <div className="logo">
             Logo
         </div>
-        <input/>
+        <input
+            //onChange={e => console.log(e.target.value)} both ways work the same for simple events
+            onChange={handleChange} //there are many event and they are the almost identical to javaScript, are known as synthetic events
+        />
     </header>
 )}
 
